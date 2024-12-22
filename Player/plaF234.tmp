@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ckfdvy7h28v7f"]
+[gd_scene load_steps=23 format=3 uid="uid://ckfdvy7h28v7f"]
 
 [ext_resource type="Texture2D" uid="uid://kdsr6yqmnp54" path="res://Characters/Santa - Sprite Sheet.png" id="1_0afpw"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_b164p"]
@@ -39,18 +39,6 @@ region = Rect2(96, 416, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_e71h7"]
 atlas = ExtResource("1_0afpw")
 region = Rect2(192, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_71jhe"]
-atlas = ExtResource("1_0afpw")
-region = Rect2(288, 608, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dkh4w"]
-atlas = ExtResource("1_0afpw")
-region = Rect2(384, 608, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2r5dy"]
-atlas = ExtResource("1_0afpw")
-region = Rect2(480, 608, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gdx4w"]
 atlas = ExtResource("1_0afpw")
@@ -127,20 +115,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_71jhe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dkh4w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2r5dy")
-}],
-"loop": false,
-"name": &"Throw",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_gdx4w")
 }, {
 "duration": 1.0,
@@ -169,15 +143,16 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "freeze_timer")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite")]
 script = ExtResource("1_b164p")
 player_sprite = NodePath("AnimatedSprite2D")
 player_camera = ExtResource("2_fxsfd")
+camera_height = null
 present_scene = ExtResource("3_qbvl8")
-freeze_timer = NodePath("FreezeTimer")
 movement_speed = 180
 gravity = 20
 jump_strength = 350
+max_jumps = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -14)
@@ -186,14 +161,5 @@ shape = SubResource("RectangleShape2D_22ccb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_moigh")
-animation = &"Throw"
+animation = &"Fall"
 autoplay = "Idle"
-frame = 2
-frame_progress = 1.0
-
-[node name="FreezeTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]
