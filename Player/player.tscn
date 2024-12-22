@@ -186,10 +186,8 @@ shape = SubResource("RectangleShape2D_22ccb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_moigh")
-animation = &"Throw"
+animation = &"Idle"
 autoplay = "Idle"
-frame = 2
-frame_progress = 1.0
 
 [node name="FreezeTimer" type="Timer" parent="."]
 wait_time = 5.0
