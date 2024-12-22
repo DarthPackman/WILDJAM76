@@ -1,0 +1,161 @@
+[gd_scene load_steps=22 format=3 uid="uid://ckfdvy7h28v7f"]
+
+[ext_resource type="Texture2D" uid="uid://kdsr6yqmnp54" path="res://Characters/Santa - Sprite Sheet.png" id="1_0afpw"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_b164p"]
+[ext_resource type="PackedScene" uid="uid://tnvlkwefvsyu" path="res://Player/player_camera.tscn" id="2_fxsfd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_22ccb"]
+size = Vector2(24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8xju"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(192, 608, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apyfa"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqwvh"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyw84"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35k7r"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(288, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yn8t8"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(384, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22xpo"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(96, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e71h7"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(192, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdx4w"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8dhl"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3ifg"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(192, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amqcj"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(288, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ns01x"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(384, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sf7km"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(480, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b57i"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(576, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8wad"]
+atlas = ExtResource("1_0afpw")
+region = Rect2(672, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_moigh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8xju")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apyfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqwvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oyw84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35k7r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yn8t8")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22xpo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e71h7")
+}],
+"loop": false,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdx4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8dhl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3ifg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amqcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ns01x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf7km")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b57i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8wad")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 6.0
+}]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite")]
+script = ExtResource("1_b164p")
+player_sprite = NodePath("AnimatedSprite2D")
+player_camera = ExtResource("2_fxsfd")
+movement_speed = 180
+gravity = 20
+jump_strength = 350
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_22ccb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_moigh")
+animation = &"Fall"
+autoplay = "Idle"
