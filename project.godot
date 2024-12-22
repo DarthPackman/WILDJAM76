@@ -11,13 +11,21 @@ config_version=5
 [application]
 
 config/name="Wildjam 76"
-run/main_scene="res://Maps/Biome1.tscn"
+run/main_scene="res://levels/Menu/Menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Lobby="*res://lobby.gd"
 
 [display]
 
 window/size/resizable=false
+
+[dotnet]
+
+project/assembly_name="Wildjam 76"
 
 [input]
 
