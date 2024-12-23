@@ -38,7 +38,11 @@ func _enter_tree():
 func _process(_delta):
 	if owner_id != multiplayer.get_unique_id():
 		return
-		
+	
+	if not camera_instance:
+		print("Error: camera_instance is not initialized!")
+		return
+	
 	camera_instance.global_position.x = global_position.x
 
 func _physics_process(_delta):

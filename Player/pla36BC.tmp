@@ -272,13 +272,11 @@ properties/0/replication_mode = 1
 script = ExtResource("1_b164p")
 player_sprite = NodePath("AnimatedSprite2D")
 player_camera = ExtResource("2_fxsfd")
-camera_height = null
 present_scene = ExtResource("3_qbvl8")
 freeze_timer = NodePath("FreezeTimer")
 movement_speed = 180
 gravity = 20
 jump_strength = 350
-max_jumps = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)

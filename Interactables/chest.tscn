@@ -1,5 +1,40 @@
-[gd_scene format=3 uid="uid://bgd7oawtpbf68"]
+[gd_scene load_steps=5 format=3 uid="uid://bgd7oawtpbf68"]
+
+[ext_resource type="Texture2D" uid="uid://defou48w1m31v" path="res://Interactables/Interactable Art/Chest.png" id="1_q10t0"]
+[ext_resource type="Script" path="res://Interactables/chest.gd" id="1_ssm56"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jx7gt"]
+size = Vector2(18, 18)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vx1ei"]
+properties/0/path = NodePath(".:is_closed")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [node name="Chest" type="Node2D"]
+script = ExtResource("1_ssm56")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="ChestLockedSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_q10t0")
+region_enabled = true
+region_rect = Rect2(0, 0, 18.1753, 18)
+
+[node name="ChestLockedSprite2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -9)
+texture = ExtResource("1_q10t0")
+region_enabled = true
+region_rect = Rect2(21, 0, 21, 18)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_jx7gt")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vx1ei")
+
+[connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]
