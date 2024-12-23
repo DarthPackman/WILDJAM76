@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://uoelhruq5yuh"]
+
+[ext_resource type="Texture2D" uid="uid://b87y7mbvcauuu" path="res://Maps/pinefields_cool/Individual Sprites/spr_pinefields_cool_175.png" id="1_lftjh"]
+[ext_resource type="Script" path="res://Interactables/pressure_plate.gd" id="1_llm5q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bkrw7"]
+size = Vector2(16, 3)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vwf5p"]
+properties/0/path = NodePath(".:is_down")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="PressurePlate" type="Node2D" node_paths=PackedStringArray("plate_up", "plate_down")]
+z_index = -1
+script = ExtResource("1_llm5q")
+plate_up = NodePath("PlateUpSprite")
+plate_down = NodePath("PlateDownSprite")
+
+[node name="PlateUpSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -6.63)
+rotation = 1.5708
+texture = ExtResource("1_lftjh")
+
+[node name="PlateDownSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -5.5)
+rotation = 1.5708
+texture = ExtResource("1_lftjh")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_bkrw7")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vwf5p")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]
+[connection signal="synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]
