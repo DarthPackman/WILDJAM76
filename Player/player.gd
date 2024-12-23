@@ -36,6 +36,9 @@ func _enter_tree():
 	get_tree().current_scene.add_child.call_deferred(camera_instance)
 	
 func _process(_delta):
+	if multiplayer.multiplayer_peer == null:
+		return 
+	
 	if owner_id != multiplayer.get_unique_id():
 		return
 		
