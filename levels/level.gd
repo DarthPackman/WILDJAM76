@@ -26,6 +26,9 @@ func add_player(id):
 	
 
 func _exit_tree():
+	if multiplayer.multiplayer_peer == null:
+		return 
+
 	if not multiplayer.is_server():
 		return
 		
