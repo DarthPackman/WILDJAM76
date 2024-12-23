@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ckfdvy7h28v7f"]
+[gd_scene load_steps=27 format=3 uid="uid://ckfdvy7h28v7f"]
 
 [ext_resource type="Texture2D" uid="uid://kdsr6yqmnp54" path="res://Characters/Santa - Sprite Sheet.png" id="1_0afpw"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_b164p"]
@@ -169,6 +169,11 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8g5og"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "freeze_timer")]
 script = ExtResource("1_b164p")
 player_sprite = NodePath("AnimatedSprite2D")
@@ -192,6 +197,9 @@ autoplay = "Idle"
 [node name="FreezeTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8g5og")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]

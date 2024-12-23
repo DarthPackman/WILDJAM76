@@ -30,6 +30,9 @@ func _on_start_button_pressed():
 	change_level.call_deferred(level_scene)
 	
 func change_level(scene):
+	for c in level_container.get_children():
+		level_container.remove_child(c)
+		c.queue_free()
 	level_container.add_child(scene.instantiate())
 
 func _on_connection_failed():

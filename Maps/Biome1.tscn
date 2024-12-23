@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=4 uid="uid://dmm2i6748a4me"]
+[gd_scene load_steps=9 format=4 uid="uid://dmm2i6748a4me"]
 
+[ext_resource type="Script" path="res://levels/level.gd" id="1_ckhpq"]
 [ext_resource type="Texture2D" uid="uid://bwx5xb1l5aicj" path="res://Maps/pinefields_cool/pinefields_cool.png" id="1_wfkk8"]
 [ext_resource type="Texture2D" uid="uid://dj8t8dvwdkky7" path="res://Maps/pinefields_cool/clouds_cool.png" id="2_haqxd"]
 [ext_resource type="Texture2D" uid="uid://ccjqx1ymy6q6c" path="res://Maps/pinefields_cool/distant_fields_1_cool.png" id="2_m4wej"]
@@ -242,7 +243,11 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_qr2j1")
 
-[node name="Biome1" type="Node2D"]
+[node name="Biome1" type="Node2D" node_paths=PackedStringArray("players_container", "spawn_points")]
+script = ExtResource("1_ckhpq")
+player_scene = ExtResource("2_wdtk8")
+players_container = NodePath("--- Players ---/Players")
+spawn_points = [NodePath("--- Players ---/SpawnPoint_0"), NodePath("--- Players ---/SpawnPoint_1")]
 
 [node name="--- Environment ---" type="Node" parent="."]
 
@@ -281,4 +286,15 @@ centered = false
 
 [node name="--- Players ---" type="Node" parent="."]
 
-[node name="Player" parent="--- Players ---" instance=ExtResource("2_wdtk8")]
+[node name="Players" type="Node2D" parent="--- Players ---"]
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="--- Players ---"]
+_spawnable_scenes = PackedStringArray("res://Player/player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 2
+
+[node name="SpawnPoint_0" type="Node2D" parent="--- Players ---"]
+position = Vector2(-90, -12)
+
+[node name="SpawnPoint_1" type="Node2D" parent="--- Players ---"]
+position = Vector2(-153, -12)
