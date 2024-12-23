@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dmm2i6748a4me"]
+[gd_scene load_steps=13 format=4 uid="uid://dmm2i6748a4me"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_ckhpq"]
 [ext_resource type="Texture2D" uid="uid://bwx5xb1l5aicj" path="res://Maps/pinefields_cool/pinefields_cool.png" id="1_wfkk8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d385fgya6x20n" path="res://Maps/pinefields_cool/sky_cool.png" id="2_u4xrc"]
 [ext_resource type="PackedScene" uid="uid://ckfdvy7h28v7f" path="res://Player/player.tscn" id="2_wdtk8"]
 [ext_resource type="PackedScene" uid="uid://uoelhruq5yuh" path="res://Interactables/pressure_plate.tscn" id="5_16v6y"]
+[ext_resource type="PackedScene" uid="uid://d0p88b2urd1y2" path="res://Interactables/exit_door.tscn" id="10_osq4e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qr2j1"]
 texture = ExtResource("1_wfkk8")
@@ -246,12 +247,13 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_qr2j1")
 
-[node name="Biome1" type="Node2D" node_paths=PackedStringArray("players_container", "spawn_points")]
+[node name="Biome1" type="Node2D" node_paths=PackedStringArray("players_container", "spawn_points", "exit_door")]
 position = Vector2(2, 2)
 script = ExtResource("1_ckhpq")
 player_scene = ExtResource("2_wdtk8")
 players_container = NodePath("--- Players ---/PlayersContainer")
 spawn_points = [NodePath("--- Players ---/SpawnPoint_0"), NodePath("--- Players ---/SpawnPoint_1")]
+exit_door = NodePath("ExitDoor")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -323,5 +325,8 @@ position = Vector2(0, -13)
 
 [node name="SpawnPoint_1" type="Node2D" parent="--- Players ---"]
 position = Vector2(-68, -13)
+
+[node name="ExitDoor" parent="." instance=ExtResource("10_osq4e")]
+position = Vector2(136, -82)
 
 [connection signal="toggle" from="--- Interactables ---/DoorPlate" to="--- Interactables ---/Door" method="activate"]

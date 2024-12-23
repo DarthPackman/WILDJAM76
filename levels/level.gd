@@ -1,5 +1,7 @@
 extends Node2D
 
+signal level_complete
+
 @export var player_scene: PackedScene
 @export var players_container: Node2D
 @export var spawn_points: Array[Node2D]
@@ -18,6 +20,8 @@ func _ready():
 		add_player(id)
 		
 	add_player(1)
+	
+	exit_door.all_players_finished.connect(_on_all_players_finished)
 
 func add_player(id):
 	var player_instance = player_scene.instantiate()
@@ -47,3 +51,7 @@ func get_spawn_point():
 	if next_spawn_point_index >= len(spawn_points):
 		next_spawn_point_index = 0
 	return spawn_point
+
+func _on_all_players_finished():
+	exit_door.all_players_finished.disconnect(_on_all_players_finished)
+	level_complete.emit()

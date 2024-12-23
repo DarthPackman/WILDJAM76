@@ -25,10 +25,8 @@ func set_door_properties():
 	open_door.visible = is_open
 	closed_door.visible = !is_open
 
-
 func _on_multiplayer_synchronizer_delta_synchronized() -> void:
 	set_door_properties()
-
 
 func _on_exit_area_2d_body_entered(body: Node2D) -> void:
 	body.queue_free()

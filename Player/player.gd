@@ -29,8 +29,7 @@ func _enter_tree():
 	set_multiplayer_authority(owner_id)
 	if owner_id != multiplayer.get_unique_id():
 		return
-	
-	
+		
 	camera_instance = player_camera.instantiate()
 	camera_instance.global_position.y = camera_height
 	get_tree().current_scene.add_child.call_deferred(camera_instance)
