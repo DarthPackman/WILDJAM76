@@ -18,10 +18,11 @@ properties/0/path = NodePath(".:is_open")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="ExitDoor" type="Node2D" node_paths=PackedStringArray("open_door", "closed_door")]
+[node name="ExitDoor" type="Node2D" node_paths=PackedStringArray("open_door", "closed_door", "exit_area")]
 script = ExtResource("1_f6u0m")
 open_door = NodePath("DoorOpenSprite")
 closed_door = NodePath("DoorClosedSprite")
+exit_area = NodePath("ExitArea2D")
 
 [node name="DoorClosedSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -24)
@@ -38,9 +39,18 @@ region_rect = Rect2(160, 288, 32, 48)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_2r801")
+
+[node name="ExitArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+
+[node name="ExitCollisionShape2D" type="CollisionShape2D" parent="ExitArea2D"]
 position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_2r801")
 
@@ -48,4 +58,5 @@ shape = SubResource("RectangleShape2D_2r801")
 replication_config = SubResource("SceneReplicationConfig_sxoig")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="ExitArea2D" to="." method="_on_exit_area_2d_body_entered"]
 [connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]

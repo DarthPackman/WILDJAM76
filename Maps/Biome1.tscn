@@ -247,6 +247,7 @@ physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_qr2j1")
 
 [node name="Biome1" type="Node2D" node_paths=PackedStringArray("players_container", "spawn_points")]
+position = Vector2(2, 2)
 script = ExtResource("1_ckhpq")
 player_scene = ExtResource("2_wdtk8")
 players_container = NodePath("--- Players ---/PlayersContainer")

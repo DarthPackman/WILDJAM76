@@ -3,6 +3,7 @@ extends Node2D
 @export var player_scene: PackedScene
 @export var players_container: Node2D
 @export var spawn_points: Array[Node2D]
+@export var exit_door: ExitDoor
 
 var next_spawn_point_index = 0
 
@@ -45,5 +46,4 @@ func get_spawn_point():
 	next_spawn_point_index += 1
 	if next_spawn_point_index >= len(spawn_points):
 		next_spawn_point_index = 0
-	
 	return spawn_point
