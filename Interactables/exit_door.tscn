@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0p88b2urd1y2"]
+
+[ext_resource type="Script" path="res://Interactables/exit_door.gd" id="1_f6u0m"]
+[ext_resource type="Texture2D" uid="uid://llkhwoyoceo1" path="res://Interactables/Interactable Art/lpc-doors-animated-1_0.png" id="1_ta1a3"]
+
+[sub_resource type="Gradient" id="Gradient_wjrf0"]
+offsets = PackedFloat32Array(0, 0.933735, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0421687, 0.0421687, 0.0421687, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sbsvd"]
+gradient = SubResource("Gradient_wjrf0")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2r801"]
+size = Vector2(30, 46)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sxoig"]
+properties/0/path = NodePath(".:is_open")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="ExitDoor" type="Node2D" node_paths=PackedStringArray("open_door", "closed_door")]
+script = ExtResource("1_f6u0m")
+open_door = NodePath("DoorOpenSprite")
+closed_door = NodePath("DoorClosedSprite")
+
+[node name="DoorClosedSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -24)
+texture = ExtResource("1_ta1a3")
+region_enabled = true
+region_rect = Rect2(160, 288, 32, 48)
+
+[node name="DoorOpenSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -24)
+texture = SubResource("GradientTexture1D_sbsvd")
+region_enabled = true
+region_rect = Rect2(160, 288, 32, 48)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_2r801")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_sxoig")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]

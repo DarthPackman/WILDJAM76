@@ -14,14 +14,14 @@ func _ready():
 	add_to_group("freezable")
 
 func _on_area_2d_body_entered(_body: Node2D) -> void:
-	#if not multiplayer.is_server():
-	#	return
+	if not multiplayer.is_server():
+		return
 	bodies_on_plate += 1
 	check_plate()
 
 func _on_area_2d_body_exited(_body: Node2D) -> void:
-	#if not multiplayer.is_server():
-	#	return
+	if not multiplayer.is_server():
+		return
 	if time_frozen:
 		return
 

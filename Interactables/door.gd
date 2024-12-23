@@ -6,8 +6,8 @@ extends Node2D
 @export var is_open = false
 
 func activate(state):
-	#if not multiplayer.is_server():
-	#	return
+	if not multiplayer.is_server():
+		return
 	is_open = state
 	set_door_properties()
 
