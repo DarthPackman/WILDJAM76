@@ -16,6 +16,7 @@ var is_time_frozen = false
 @export var jump_strength = 600
 @export var max_jumps = 1
 
+var owner_id = 1
 var jump_count = 0
 var camera_instance
 var direction = true
@@ -23,15 +24,27 @@ var is_free = true
 
 @onready var initial_sprite_scale = player_sprite.scale
 
-func _ready():
+func _enter_tree():
+	owner_id = name.to_int()
+	set_multiplayer_authority(owner_id)
+	if owner_id != multiplayer.get_unique_id():
+		return
+	
+	
 	camera_instance = player_camera.instantiate()
 	camera_instance.global_position.y = camera_height
 	get_tree().current_scene.add_child.call_deferred(camera_instance)
 	
 func _process(_delta):
+	if owner_id != multiplayer.get_unique_id():
+		return
+		
 	camera_instance.global_position.x = global_position.x
 
 func _physics_process(_delta):
+	if owner_id != multiplayer.get_unique_id():
+		return
+		
 	var horizontal_input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	
 	velocity.x = horizontal_input * movement_speed
