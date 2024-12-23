@@ -8,7 +8,7 @@ var saved_gravity_scale = 1.0
 func _ready():
 	add_to_group("freezable")
 
-func _process(delta):
+func _process(_delta):
 	if time_frozen:
 		linear_velocity = Vector2.ZERO
 		angular_velocity = 0.0

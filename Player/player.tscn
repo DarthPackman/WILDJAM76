@@ -175,6 +175,8 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "freeze_timer")]
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_b164p")
 player_sprite = NodePath("AnimatedSprite2D")
 player_camera = ExtResource("2_fxsfd")
